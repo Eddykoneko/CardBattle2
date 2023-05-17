@@ -1,8 +1,17 @@
 body,html{
     margin: 0;
     height: 100%;
+    background-image: url("https://images.alphacoders.com/555/555056.jpg")
+
 }
 
 header{
     text-align: center;
 }
+
+main{
+    display: flex;
+    justify-content: space-around;
+}
+
+
