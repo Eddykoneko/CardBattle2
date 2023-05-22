@@ -5,7 +5,7 @@ body,html{
     margin: 0;
     padding: 0%;
     height: 100%;
-    background-image: url("https://images.alphacoders.com/555/555056.jpg");
+    background-image: url("https://initiate.alphacoders.com/images/555/stretched-1920-1080-555056.jpg?4519");
     /* background-repeat: no-repeat; */
     font-size: larger;
 }
@@ -15,6 +15,7 @@ header{
     font-size: 30px;
     padding-bottom: 30px;
     padding-top: 30px;
+
 }
 
 #titre{
@@ -27,6 +28,7 @@ header{
         animation: animate 5s infinite;
         -webkit-background-clip: text;
         -webkit-text-fill-color: rgba(255, 255, 255, 0);
+
 }
 
 @keyframes animate{
@@ -41,6 +43,7 @@ header{
 main{
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 #vs{
@@ -50,6 +53,7 @@ main{
     border-radius: 10px;
     margin-top: 200px;
     margin-bottom: 200px;
+    padding: 10px;
 }
 
 /* BODY */
@@ -108,7 +112,7 @@ button{
     font-size: 30px;
     cursor: pointer;
     color: black;
-
+    transition: 0.3s;
 }
 
 .attack:hover{
@@ -126,8 +130,7 @@ button{
 
 #img1,#img2{
     width: 80%;
-    height: 80%;
-    
+    height: 80%;    
 }
 
 /*///////////////////////////// Barre de vie /////////////////////////////*/
@@ -137,17 +140,46 @@ progress[value] {
     appearance: none;
     width: 250px;
     height: 20px;
-    
+    border-radius: 10px;
+    background-color: #d3d3d3;
+    border: none;
 }
 
 #classej1,#classej2{
-    border: solid 2px black;
-    border-radius: 10px;
+
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
     letter-spacing: 5px;
+    margin-top: 0;
     margin-bottom: 20px;
     padding-bottom: 20px;
 }
 
+#classej1{
+    color: blue;
+}
 
-@media screen and (max-width: 720px) {
+#classej2{
+    color: red;
+}
+
+
+/*///////////////////////////// Responsive /////////////////////////////*/
+
+@media screen and (max-width: 768px) {
+    main{
+        flex-direction: column;
+    }
+    #joueur1,#joueur2{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #img1,#img2{
+        width: 50%;
+        height: 50%;
+    }
+    #vs{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 }
