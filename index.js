@@ -1,5 +1,5 @@
-const backgroundMusic = new Audio("https://vgmsite.com/soundtracks/super-smash-bros.-melee-original-sound-version/jghupxig/1-37%20Pok%C3%A9mon%20Battle%21%20%28GoldSilver%29.mp3")
-backgroundMusic.volume = 1
+const backgroundMusic = new Audio("./mp3/ThoseWhoFight-remake.ogg")
+backgroundMusic.volume = 0.1
 backgroundMusic.loop = true // repeat music
 backgroundMusic.play()
 
