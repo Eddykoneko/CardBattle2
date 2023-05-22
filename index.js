@@ -90,7 +90,7 @@ healBtnJ2.addEventListener("click", function() {
 
 function getDamage(classe){
     if (classe === "mage"){
-        return getRandomValue(2, 15)
+        return getRandomValue(3, 6)
     }else{
         return getRandomValue(5, 8)
     }
@@ -99,7 +99,7 @@ function getDamage(classe){
 
 function getHeal(classe){
     if(classe === "mage"){
-        return getRandomValue(3, 4)
+        return getRandomValue(4, 7)
     }else{
         return getRandomValue(4, 5)
     }

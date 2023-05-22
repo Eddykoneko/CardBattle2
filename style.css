@@ -1,8 +1,10 @@
 body,html{
     margin: 0;
+    padding: 0%;
     height: 100%;
     background-image: url("https://images.alphacoders.com/555/555056.jpg");
-    font-family : 'Pangolin', cursive;
+    /* font-family: 'Raleway', sans-serif; */
+    font-family: 'Roboto', sans-serif;
     font-size: larger;
 }
 
@@ -11,6 +13,27 @@ header{
     font-size: 30px;
     padding-bottom: 30px;
     padding-top: 30px;
+}
+
+#titre{
+        position: relative;
+        font-family: Impact, sans-serif;
+        font-size: 45px;
+        letter-spacing: 2px;
+        background: linear-gradient(90deg, #e31212, #1310e3, #000);
+        background-size: 80%;
+        animation: animate 5s infinite;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+@keyframes animate {
+    0% {
+        background-position: -500%;
+    }
+    100% {
+        background-position: 500%;
+    }
 }
 
 main{
@@ -26,6 +49,7 @@ main{
     margin-top: 200px;
     margin-bottom: 200px;
 }
+
 /* BODY */
 
 /*//////////////////////////// 1er Joueur /////////////////////////////*/
@@ -44,7 +68,7 @@ main{
 
 #nomjoueur1{
     font-size: 30px;
-    background-color: lightblue;
+    background-color: blue;
     color: white;
     border-radius: 10px;
     
@@ -67,7 +91,7 @@ main{
 
 #nomjoueur2{
     font-size: 30px;
-    background-color: lightgreen;
+    background-color: red;
     color: white;
     border-radius: 10px;
 }
@@ -76,13 +100,13 @@ main{
 
 button{
     border-radius: 10px;
-    background-color: black;
+    background-color: gray;
     border: none;
     padding: 10px;
     margin: 10px;
     font-size: 30px;
     cursor: pointer;
-    color: white;
+    color: black;
 
 }
 
@@ -98,28 +122,28 @@ button{
 
 /*///////////////////////////// Images /////////////////////////////*/
 
+
 #img1,#img2{
-    width: 70%;
-    height: 70%;
+    width: 80%;
+    height: 80%;
+    margin: 0;
+    padding: 0;
 }
 
 /*///////////////////////////// Barre de vie /////////////////////////////*/
 
-#barre1,#barre2{
-    width: 100%;
-    height: 30px;
-    background-color: red;
-    border-radius: 10px;
-    margin-top: 20px;
-    border-top: solid 3px black;
-    border-bottom: solid 3px black;
+progress[value] {
+
+    -webkit-appearance: none;
+    appearance: none;
+    width: 250px;
+    height: 20px;
 }
 
 #classej1,#classej2{
     border: solid 2px black;
     border-radius: 10px;
+    letter-spacing: 2px;
 }
 
-#progress{
-    height: 10px;
-}
+#actionj1,#actionj2{}
