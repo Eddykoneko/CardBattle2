@@ -35,8 +35,6 @@ attackBtnJ1.addEventListener("click", function() {
 
 // desactive les actions de joueur (pas son tour)
    
-
-     
 })
 
 attackBtnJ2.addEventListener("click", function() {
@@ -47,6 +45,7 @@ attackBtnJ2.addEventListener("click", function() {
     if(healthBarJ1.value===0){
         gameOver()
     }
+
     switchPlayer("mage")
     // healBtnJ1.disabled = false
 
