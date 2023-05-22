@@ -82,7 +82,7 @@ button{
     margin: 10px;
     font-size: 30px;
     cursor: pointer;
-    color: whitesmoke;
+    color: white;
 
 }
 
@@ -118,4 +118,8 @@ button{
 #classej1,#classej2{
     border: solid 2px black;
     border-radius: 10px;
+}
+
+#progress{
+    height: 10px;
 }
