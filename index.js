@@ -1,5 +1,5 @@
 const backgroundMusic = new Audio("https://vgmsite.com/soundtracks/super-smash-bros.-melee-original-sound-version/jghupxig/1-37%20Pok%C3%A9mon%20Battle%21%20%28GoldSilver%29.mp3")
-backgroundMusic.volume = 0.3
+backgroundMusic.volume = 1
 backgroundMusic.loop = true // repeat music
 backgroundMusic.play()
 
@@ -90,7 +90,7 @@ healBtnJ2.addEventListener("click", function() {
 
 function getDamage(classe){
     if (classe === "mage"){
-        return getRandomValue(2, 12)
+        return getRandomValue(2, 15)
     }else{
         return getRandomValue(5, 8)
     }
@@ -160,6 +160,8 @@ function gameOver() {
     gm.style.height = "100%"
     gm.style.top = 0
     gm.style.position = "fixed"
+    gm.style.textAlign = "center"
+
     //gm.style.background = "white"
 
     const contenu = document.createElement("div")
