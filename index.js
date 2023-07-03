@@ -12,8 +12,11 @@ const gameOverSound = new Audio("https://vgmsite.com/soundtracks/super-smash-bro
 const divJ1 = document.querySelector("#joueur1");
 const divJ2 = document.querySelector("#joueur2");
 
-const healthBarJ1 = document.querySelector("#joueur1 progress")
-const healthBarJ2 = document.querySelector("#joueur2 progress")
+let healthBarJ1 = document.querySelector("#joueur1 .progress-bar")
+let healthBarJ2 = document.querySelector("#joueur2 .progress-bar")
+
+let pointVieJ1 = document.querySelector("#joueur1.point-vie>p")
+let pointVieJ2 = document.querySelector("#joueur2.point-vie>p")
 
 const attackBtnJ1 = document.querySelector("#joueur1 .attack")
 const attackBtnJ2 = document.querySelector("#joueur2 .attack")
@@ -21,7 +24,7 @@ const attackBtnJ2 = document.querySelector("#joueur2 .attack")
 const healBtnJ1 = document.querySelector("#joueur1 .heal")
 const healBtnJ2 = document.querySelector("#joueur2 .heal")
 
-
+console.log(healthBarJ1.offsetWidth)
 /*ACTIONS BUTTONS*/
 
 

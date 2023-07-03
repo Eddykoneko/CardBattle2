@@ -17,6 +17,22 @@ header{
     padding-top: 30px;
 
 }
+.progress-bar {
+    width: 200px;
+    height: 10px;
+    background-color: black;
+    border-radius: 20px;
+
+}
+
+.point-vie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+   
+
+}
 
 .active-attack {
     animation: goattack 300ms;
