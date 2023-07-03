@@ -9,6 +9,7 @@ const healSoundMage = new Audio("https://www.myinstants.com/media/sounds/111-pok
 const healSoundVoleur = new Audio("https://www.myinstants.com/media/sounds/halo-shield-recharge-sound.mp3")
 const gameOverSound = new Audio("https://vgmsite.com/soundtracks/super-smash-bros.-melee-original-sound-version/ukzbqkro/2-26%20Pokemon%20Victory.mp3")
 
+
 const healthBarJ1 = document.querySelector("#joueur1 progress")
 const healthBarJ2 = document.querySelector("#joueur2 progress")
 
@@ -19,8 +20,11 @@ const healBtnJ1 = document.querySelector("#joueur1 .heal")
 const healBtnJ2 = document.querySelector("#joueur2 .heal")
 
 
+/*ACTIONS BUTTONS*/
+
+
 attackBtnJ1.addEventListener("click", function() {
-    // console.log(attackBtnJ1)
+    console.log(attackBtnJ1)
     const damage = getDamage("mage")
     healthBarJ2.value = healthBarJ2.value - damage
     playDamageSound("mage")
@@ -87,6 +91,21 @@ healBtnJ2.addEventListener("click", function() {
     // healBtnJ2.disabled = true
 })
 
+fireBall.addEventListener("click", function() {
+    console.log(fireBall)
+    const damage = getFireball("mage")
+    healthBarJ2.value = healthBarJ2.value - damage
+    playFireballSound("mage")
+    if(healthBarJ2.value===0){
+        gameOver()
+    }
+    switchPlayer("voleur")
+})
+
+
+
+/*FONCTION DOMMAGES*/
+
 
 function getDamage(classe){
     if (classe === "mage"){
@@ -106,12 +125,17 @@ function getHeal(classe){
 
 }
 
+
+
 function getRandomValue(min, max){
     const difference = max - min +1
     const random = Math.floor(Math.random() * difference)
     return random + min
 
 }
+
+/*FONCTION SWITCH PLAYER*/
+
 
 function switchPlayer(classe){
     if(classe === "mage"){
@@ -123,6 +147,7 @@ function switchPlayer(classe){
 
         attackBtnJ2.disabled = true
         healBtnJ2.disabled = true
+        fireBall.disabled = true
     }else{
         attackBtnJ2.disabled = false
         if ( healthBarJ2.value < 100 ){
@@ -131,10 +156,12 @@ function switchPlayer(classe){
 
         attackBtnJ1.disabled = true
         healBtnJ1.disabled = true
+        fireBall.disabled = true
         
     }
 }
 
+/*FONCTION SONS*/
 
 function playDamageSound(classe){
     if(classe === "mage"){
@@ -152,6 +179,11 @@ function playHealSound(classe){
     }
 }
 
+
+
+/*FONCTION GAME OVER*/
+
+
 function gameOver() {
     backgroundMusic.pause()
     gameOverSound.play()
@@ -161,6 +193,7 @@ function gameOver() {
     gm.style.top = 0
     gm.style.position = "fixed"
     gm.style.textAlign = "center"
+
 
     //gm.style.background = "white"
 
