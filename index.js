@@ -1,4 +1,4 @@
-const backgroundMusic = new Audio("./mp3/ThoseWhoFight-remake.ogg")
+const backgroundMusic = new Audio("h")
 backgroundMusic.volume = 0.1
 backgroundMusic.loop = true // repeat music
 backgroundMusic.play()
@@ -9,6 +9,8 @@ const healSoundMage = new Audio("https://www.myinstants.com/media/sounds/111-pok
 const healSoundVoleur = new Audio("https://www.myinstants.com/media/sounds/halo-shield-recharge-sound.mp3")
 const gameOverSound = new Audio("https://vgmsite.com/soundtracks/super-smash-bros.-melee-original-sound-version/ukzbqkro/2-26%20Pokemon%20Victory.mp3")
 
+const divJ1 = document.querySelector("#joueur1");
+const divJ2 = document.querySelector("#joueur2");
 
 const healthBarJ1 = document.querySelector("#joueur1 progress")
 const healthBarJ2 = document.querySelector("#joueur2 progress")
@@ -24,10 +26,12 @@ const healBtnJ2 = document.querySelector("#joueur2 .heal")
 
 
 attackBtnJ1.addEventListener("click", function() {
-    console.log(attackBtnJ1)
+    
     const damage = getDamage("mage")
+    console.log(`mage attack ${damage}`)
     healthBarJ2.value = healthBarJ2.value - damage
     playDamageSound("mage")
+    attackAnimation(divJ1)
     if(healthBarJ2.value===0){
         gameOver()
     }
@@ -44,8 +48,10 @@ attackBtnJ1.addEventListener("click", function() {
 attackBtnJ2.addEventListener("click", function() {
     // console.log(attackBtnJ2)
     const damage = getDamage("voleur")
+    console.log(`voleur attack ${damage}`)
     healthBarJ1.value = healthBarJ1.value - damage
     playDamageSound("voleur")
+    attackAnimation(divJ2)
     if(healthBarJ1.value===0){
         gameOver()
     }
@@ -90,36 +96,43 @@ healBtnJ2.addEventListener("click", function() {
     // healBtnJ2.disabled = true
 })
 
-fireBall.addEventListener("click", function() {
+/*fireBall.addEventListener("click", function() {
     console.log(fireBall)
     const damage = getFireball("mage")
     healthBarJ2.value = healthBarJ2.value - damage
-    playFireballSound("mage")
+    playHealSound("mage")
     if(healthBarJ2.value===0){
         gameOver()
     }
     switchPlayer("voleur")
 })
-
+*/
 
 
 /*FONCTION DOMMAGES*/
 
+function attackAnimation(element)
+{
+    element.classList.add('active-attack');
+    setTimeout(() => {
+        element.classList.remove('active-attack');
+    }, 400)
+}
 
 function getDamage(classe){
     if (classe === "mage"){
-        return getRandomValue(3, 6)
+        return getRandomValue(15, 26)
     }else{
-        return getRandomValue(5, 8)
+        return getRandomValue(20, 28)
     }
 
 }
 
 function getHeal(classe){
     if(classe === "mage"){
-        return getRandomValue(4, 7)
+        return getRandomValue(14, 27)
     }else{
-        return getRandomValue(4, 5)
+        return getRandomValue(11, 22)
     }
 
 }
@@ -139,14 +152,14 @@ function getRandomValue(min, max){
 function switchPlayer(classe){
     if(classe === "mage"){
         attackBtnJ1.disabled = false
-        console.log(healBtnJ1.value)
+        //console.log(healBtnJ1.value)
         if ( healthBarJ1.value < 100 ){
             healBtnJ1.disabled = false
         }
 
         attackBtnJ2.disabled = true
         healBtnJ2.disabled = true
-        fireBall.disabled = true
+        //fireBall.disabled = true
     }else{
         attackBtnJ2.disabled = false
         if ( healthBarJ2.value < 100 ){
@@ -155,7 +168,7 @@ function switchPlayer(classe){
 
         attackBtnJ1.disabled = true
         healBtnJ1.disabled = true
-        fireBall.disabled = true
+        //fireBall.disabled = true
         
     }
 }

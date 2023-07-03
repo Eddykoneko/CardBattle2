@@ -18,6 +18,28 @@ header{
 
 }
 
+.active-attack {
+    animation: goattack 300ms;
+}
+
+#joueur1 {
+    --animation-translate: 300px;
+}
+
+#joueur2 {
+    --animation-translate: -300px;
+}
+
+@keyframes goattack {
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+         transform: translate(var(--animation-translate), 0) scale(.5);
+    }
+  }
+  
+
 #titre{
         position: relative;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -110,19 +132,20 @@ button{
     padding: 10px;
     margin: 10px;
     font-size: 30px;
-    cursor: pointer;
     color: black;
     transition: 0.3s;
 }
 
-.attack:hover{
+.attack:not(:disabled):hover{
     background-color: red;
     color: black;
+    cursor: pointer;
 }
 
-.heal:hover{
+.heal:not(:disabled):hover{
     background-color: green;
     color: black;
+    cursor: pointer;
 }
 
 /*///////////////////////////// Images /////////////////////////////*/
