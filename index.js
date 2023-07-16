@@ -9,83 +9,68 @@ const healSoundMage = new Audio("https://www.myinstants.com/media/sounds/111-pok
 const healSoundVoleur = new Audio("https://www.myinstants.com/media/sounds/halo-shield-recharge-sound.mp3")
 const gameOverSound = new Audio("https://vgmsite.com/soundtracks/super-smash-bros.-melee-original-sound-version/ukzbqkro/2-26%20Pokemon%20Victory.mp3")
 
-const divJ1 = document.querySelector("#joueur1");
-const divJ2 = document.querySelector("#joueur2");
+const playerCards = document.querySelectorAll(".player-card")
 
-let healthBarJ1 = document.querySelector("#joueur1 .progress-bar")
-let healthBarJ2 = document.querySelector("#joueur2 .progress-bar")
+const healthBars = document.querySelectorAll(".progress-bar")
 
 let pointVieJ1 = document.querySelector("#joueur1.point-vie>span")
 let pointVieJ2 = document.querySelector("#joueur2.point-vie>span")
 
-const attackBtnJ1 = document.querySelector("#joueur1 .attack")
-const attackBtnJ2 = document.querySelector("#joueur2 .attack")
+const attackBtns = document.querySelectorAll(".attack")
+const healBtns = document.querySelectorAll(".heal")
 
-const healBtnJ1 = document.querySelector("#joueur1 .heal")
-const healBtnJ2 = document.querySelector("#joueur2 .heal")
-
-let healthJ1 = 100;
-let healthJ2 = 100;
+const classes = [
+    {
+        name: "mage",
+        health: 100
+    }, 
+    {
+        name: "voleur",
+        health: 100
+    }
+]
 
 /*ACTIONS BUTTONS*/
 
-attackBtnJ1.addEventListener("click", clickAttackButtonJ1) 
-attackBtnJ2.addEventListener("click", clickAttackButtonJ2)
+attackBtns[0].addEventListener("click", () => clickAttackButton(0)) 
+attackBtns[1].addEventListener("click", () =>  clickAttackButton(1))
 
-healBtnJ1.addEventListener("click", clickHealButtonJ1)
-healBtnJ2.addEventListener("click", clickHealButtonJ2)
+healBtns[0].addEventListener("click", () => clickHealButton(0))
+healBtns[1].addEventListener("click", () => clickHealButton(1))
 
-function clickAttackButtonJ1() {
-    healthJ2 = clickAttackButton("mage", "voleur", healthJ2, healthBarJ2, divJ1, healBtnJ1, healBtnJ2)
-}
 
-function clickAttackButtonJ2() {
-    healthJ1 = clickAttackButton("voleur", "mage", healthJ1, healthBarJ1, divJ2, healBtnJ2, healBtnJ1)
-}
+function clickAttackButton(indexJoueur) {
+    // recupere l'index inverse (ennemy)
+    const indexEnemy = indexJoueur === 1 ? 0 : 1
+    const classeJoueur = classes[indexJoueur]
+    const classeEnemy = classes[indexEnemy]
+    //console.log(classeEnemy)
+    const healthBarEnemy = healthBars[indexEnemy]
+    const playerCard = playerCards[indexJoueur]
+    const damage = getDamage(classeJoueur.name)
+    console.log(`${classeJoueur.name} attack ${damage}`)
+    classeEnemy.health -= damage
+    healthBarEnemy.style.width = `${classeEnemy.health}%`
+    //console.log(classeEnemy.health)
 
-function clickHealButtonJ1() {
-    healthJ1 = clickHealButton("mage", "voleur", healthJ1, healthJ2, healthBarJ1, divJ1, healBtnJ1, healBtnJ2)
-}
-
-function clickHealButtonJ2() {
-    healthJ2 = clickHealButton("voleur", "mage", healthJ2, healthJ1, healthBarJ2, divJ2, healBtnJ2, healBtnJ1)
-}
-
-function clickAttackButton(classe, classeEnemy, healthEnemy, healthBarEnemy, card, healBtn, healBtnEnemy) {
-    const damage = getDamage(classe)
-    console.log(`${classe} attack ${damage}`)
-    healthEnemy -= damage
-    healthBarEnemy.style.width = `${healthEnemy}%`
-    console.log(healthEnemy)
-
-    playDamageSound(classe)
-    attackAnimation(card)
-    if(healthEnemy === 0){
+    playDamageSound(classeJoueur.name)
+    attackAnimation(playerCard)
+    if(classeEnemy.health === 0){
         gameOver()
     }
 
-    healBtn.disabled = true
-    healBtnEnemy.disabled = false
-
-    switchPlayer(classeEnemy)
-
-    return healthEnemy
+    switchPlayer(indexJoueur, indexEnemy)
 }   
 
-function clickHealButton(classe, classeEnemy, health, healthEnemy, healthBar, card, healBtn, healBtnEnemy) {
-    const heal = getHeal(classe)
-    health += heal
-    healthBar.style.width = `${health}%`
-    console.log(health)
-    playHealSound(classe)
-    switchPlayer(classeEnemy)
-
-    healBtn.disabled = true
-    if (healthEnemy < 100) {
-        healBtnEnemy.disabled = false
-    }
-
-    return health
+function clickHealButton(indexJoueur) {
+    const indexEnemy = indexJoueur === 1 ? 0 : 1
+    const classeJoueur = classes[indexJoueur]
+    const heal = getHeal(classeJoueur.name)
+    classeJoueur.health += heal
+    healthBars[indexJoueur].style.width = `${classeJoueur.health}%`
+    console.log(classeJoueur.health)
+    playHealSound(classeJoueur.name)
+    switchPlayer(indexJoueur, indexEnemy)
 }
 //     // healBtnJ2.disabled = false
 //     // console.log(healthJ1)
@@ -191,27 +176,16 @@ function getRandomValue(min, max){
 /*FONCTION SWITCH PLAYER*/
 
 
-function switchPlayer(classe){
-    if(classe === "mage"){
-        attackBtnJ1.disabled = false
-        //console.log(healBtnJ1.value)
-        if ( healthJ1 < 100 ){
-            healBtnJ1.disabled = false
-        }
+function switchPlayer(indexJoueur, indexEnemy) {
+    // desactive boutons joeur
+    attackBtns[indexJoueur].disabled = true
+    healBtns[indexJoueur].disabled = true
 
-        attackBtnJ2.disabled = true
-        healBtnJ2.disabled = true
-        //fireBall.disabled = true
-    }else{
-        attackBtnJ2.disabled = false
-        if ( healthJ2 < 100 ){
-            healBtnJ2.disabled = false
-        }
-
-        attackBtnJ1.disabled = true
-        healBtnJ1.disabled = true
-        //fireBall.disabled = true
-        
+    // active boutons enemy
+    const classEnemy = classes[indexEnemy]
+    attackBtns[indexEnemy].disabled = false
+    if (classEnemy.health < 100) {
+        healBtns[indexEnemy].disabled = false
     }
 }
 
