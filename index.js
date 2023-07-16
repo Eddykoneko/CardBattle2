@@ -13,11 +13,14 @@ const playerCards = document.querySelectorAll(".player-card")
 
 const healthBars = document.querySelectorAll(".progress-bar")
 
-let pointVieJ1 = document.querySelector("#joueur1.point-vie>span")
-let pointVieJ2 = document.querySelector("#joueur2.point-vie>span")
+const pointVies = document.querySelectorAll(".point-vie span")
 
 const attackBtns = document.querySelectorAll(".attack")
 const healBtns = document.querySelectorAll(".heal")
+
+const listActiosn = document.querySelector(".actions")
+
+const actions = []
 
 const classes = [
     {
@@ -38,7 +41,7 @@ attackBtns[1].addEventListener("click", () =>  clickAttackButton(1))
 healBtns[0].addEventListener("click", () => clickHealButton(0))
 healBtns[1].addEventListener("click", () => clickHealButton(1))
 
-
+console.log(pointVies)
 function clickAttackButton(indexJoueur) {
     // recupere l'index inverse (ennemy)
     const indexEnemy = indexJoueur === 1 ? 0 : 1
@@ -51,10 +54,15 @@ function clickAttackButton(indexJoueur) {
     console.log(`${classeJoueur.name} attack ${damage}`)
     classeEnemy.health -= damage
     healthBarEnemy.style.width = `${classeEnemy.health}%`
+    pointVies[indexEnemy].textContent = classeEnemy.health
+    
+
     //console.log(classeEnemy.health)
 
     playDamageSound(classeJoueur.name)
     attackAnimation(playerCard)
+    const actionMessage = `${classeJoueur.name} a infligé ${damage} points à ${classeEnemy.name}`
+    afficherActions(actionMessage)
     if(classeEnemy.health === 0){
         gameOver()
     }
@@ -66,62 +74,19 @@ function clickHealButton(indexJoueur) {
     const indexEnemy = indexJoueur === 1 ? 0 : 1
     const classeJoueur = classes[indexJoueur]
     const heal = getHeal(classeJoueur.name)
-    classeJoueur.health += heal
+    if (classeJoueur.health + heal > 100) {
+        classeJoueur.health = 100
+    } else {
+        classeJoueur.health += heal
+    }
     healthBars[indexJoueur].style.width = `${classeJoueur.health}%`
+    pointVies[indexJoueur].textContent = classeJoueur.health
     console.log(classeJoueur.health)
+    const actionMessage = `${classeJoueur.name} c'est soigné ${heal} points`
+    afficherActions(actionMessage)
     playHealSound(classeJoueur.name)
     switchPlayer(indexJoueur, indexEnemy)
 }
-//     // healBtnJ2.disabled = false
-//     // console.log(healthJ1)
-//     // console.log(damage)
-
-// // desactive les actions de joueur (pas son tour)
-//     // console.log(attackBtnJ2)
-//     const damage = getDamage("voleur")
-//     console.log(`voleur attack ${damage}`)
-//     healthJ1 -= damage
-//     playDamageSound("voleur")
-//     attackAnimation(divJ2)
-//     if(healthJ1 === 0){
-//         gameOver()
-//     }
-
-//     switchPlayer("mage")
-//     // healBtnJ1.disabled = false
-
-//     // desactive les actions de joueur (pas son tour)
-//     // attackBtnJ2.disabled = true
-//     // healBtnJ2.disabled = true
-
-//     // console.log(healBtnJ1)
-//     const heal = getHeal("mage")
-//     healthBarJ1.value = healthBarJ1.value + heal
-//     playHealSound("mage")
-//     switchPlayer("voleur")
-//     // if ( healthBarJ1.value === 100 ){
-//     //     healBtnJ1.disabled = true
-//     // }
-
-//     // desactive les actions de joueur (pas son tour)
-//     // attackBtnJ1.disabled = true
-//     // healBtnJ1.disabled = true
-
-
-//healBtnJ2.addEventListener("click", function() {
-    // console.log(healBtnJ2)
-   // const heal = getHeal("voleur")
-   // healthBarJ2.value = healthBarJ2.value + heal
-   // playHealSound("voleur")
-    //switchPlayer("mage")
-    // if ( healthBarJ2.value === 100 ){
-    //     healBtnJ2.disabled = true
-    // }
-
-
-    // desactive les actions de joueur (pas son tour)
-    // attackBtnJ2.disabled = true
-    // healBtnJ2.disabled = true
 
 /*fireBall.addEventListener("click", function() {
     console.log(fireBall)
@@ -135,6 +100,15 @@ function clickHealButton(indexJoueur) {
 })
 */
 
+function afficherActions(message) {
+    listActiosn.innerHTML = ""
+    actions.push(message)
+    actions.forEach(action => {
+        const actionLi = document.createElement("li")
+        actionLi.textContent = action
+        listActiosn.appendChild(actionLi)
+    })
+}
 
 /*FONCTION DOMMAGES*/
 
@@ -165,7 +139,6 @@ function getHeal(classe){
 }
 
 
-
 function getRandomValue(min, max){
     const difference = max - min +1
     const random = Math.floor(Math.random() * difference)
@@ -180,12 +153,14 @@ function switchPlayer(indexJoueur, indexEnemy) {
     // desactive boutons joeur
     attackBtns[indexJoueur].disabled = true
     healBtns[indexJoueur].disabled = true
+    playerCards[indexJoueur].classList.remove("on")
 
     // active boutons enemy
     const classEnemy = classes[indexEnemy]
     attackBtns[indexEnemy].disabled = false
     if (classEnemy.health < 100) {
         healBtns[indexEnemy].disabled = false
+        playerCards[indexEnemy].classList.add("on")
     }
 }
 

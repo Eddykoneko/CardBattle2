@@ -41,6 +41,10 @@ header{
 
 }
 
+.on {
+    border: 10px inset red;
+}
+
 .active-attack {
     animation: goattack 300ms;
 }
