@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&family=Roboto:wght@100&family=Rubik:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 
 body,html{
     margin: 0;
@@ -8,7 +8,11 @@ body,html{
     background-image: url("./img/HS\ Wallpaper.jpg");
     /* background-repeat: no-repeat; */
     font-size: larger;
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
 }
+
+/*///////////////////////////// HEADER /////////////////////////////*/
 
 header{
     text-align: center;
@@ -18,9 +22,10 @@ header{
 
 }
 
+
 #titre{
         position: relative;
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 45px;
         letter-spacing: 10px;
         background: linear-gradient(90deg, #e31212, #1310e3, #000);
@@ -30,6 +35,12 @@ header{
         -webkit-text-fill-color: rgba(255, 255, 255, 0);
 
 }
+
+p, h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+
 
 @keyframes animate{
     0% {
@@ -54,6 +65,7 @@ main{
     margin-top: 200px;
     margin-bottom: 200px;
     padding: 10px;
+    font-family: 'Merriweather', serif;
 }
 
 /* BODY */
@@ -105,7 +117,7 @@ main{
 
 button{
     border-radius: 10px;
-    background-color: gray;
+    background-color: rgb(235, 235, 235);
     border: none;
     padding: 10px;
     margin: 10px;
@@ -165,21 +177,26 @@ progress[value] {
 
 
 /*///////////////////////////// Responsive /////////////////////////////*/
-
 @media screen and (max-width: 768px) {
+
     main{
         flex-direction: column;
     }
-    #joueur1,#joueur2{
-        width: 100%;
-        margin-bottom: 20px;
+    #titre{
+        font-size: 30px;  /* Réduction de la taille du texte */
     }
-    #img1,#img2{
-        width: 50%;
-        height: 50%;
+    
+    #nomjoueur1, #nomjoueur2 {
+        font-size: 24px;  /* Réduction de la taille du texte */
     }
-    #vs{
-        margin-top: 50px;
-        margin-bottom: 50px;
+    
+    button {
+        font-size: 24px;  /* Réduction de la taille du texte */
+    }
+
+    #vs {
+        font-size: 40px;  /* Réduction de la taille du texte */
+        margin-top: 20px;  /* Réduction de la marge */
+        margin-bottom: 20px;  /* Réduction de la marge */
     }
 }

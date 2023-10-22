@@ -1,7 +1,7 @@
 const backgroundMusic = new Audio("./mp3/ThoseWhoFight-remake.ogg")
 backgroundMusic.volume = 0.1
 backgroundMusic.loop = true // repeat music
-backgroundMusic.play()
+backgroundMusic.play() // play music
 
 const attackSoundMage = new Audio("https://www.myinstants.com/media/sounds/magic-fairy.mp3")
 const attackSoundVoleur = new Audio("https://www.myinstants.com/media/sounds/tf2-critical-hit.mp3")
@@ -22,86 +22,70 @@ const healBtnJ2 = document.querySelector("#joueur2 .heal")
 
 /*ACTIONS BUTTONS*/
 
+/*ATTACK*/
 
 attackBtnJ1.addEventListener("click", function() {
-    console.log(attackBtnJ1)
     const damage = getDamage("mage")
     healthBarJ2.value = healthBarJ2.value - damage
     playDamageSound("mage")
+
     if(healthBarJ2.value===0){
         gameOver()
     }
     switchPlayer("voleur")
-
-    // healBtnJ2.disabled = false
-    // console.log(healthBarJ1.value)
-    // console.log(damage)
-
-// desactive les actions de joueur (pas son tour)
-   
-
-     
 })
 
 attackBtnJ2.addEventListener("click", function() {
-    // console.log(attackBtnJ2)
     const damage = getDamage("voleur")
     healthBarJ1.value = healthBarJ1.value - damage
     playDamageSound("voleur")
+
     if(healthBarJ1.value===0){
         gameOver()
     }
     switchPlayer("mage")
-    // healBtnJ1.disabled = false
-
-    // desactive les actions de joueur (pas son tour)
-    // attackBtnJ2.disabled = true
-    // healBtnJ2.disabled = true
-
 })
 
+/*HEAL*/
+
 healBtnJ1.addEventListener("click", function() {
-    // console.log(healBtnJ1)
     const heal = getHeal("mage")
     healthBarJ1.value = healthBarJ1.value + heal
     playHealSound("mage")
     switchPlayer("voleur")
-    // if ( healthBarJ1.value === 100 ){
-    //     healBtnJ1.disabled = true
-    // }
-
-    // desactive les actions de joueur (pas son tour)
-    // attackBtnJ1.disabled = true
-    // healBtnJ1.disabled = true
 })
 
+
 healBtnJ2.addEventListener("click", function() {
-    // console.log(healBtnJ2)
     const heal = getHeal("voleur")
     healthBarJ2.value = healthBarJ2.value + heal
     playHealSound("voleur")
     switchPlayer("mage")
-    // if ( healthBarJ2.value === 100 ){
-    //     healBtnJ2.disabled = true
-    // }
-
-
-    // desactive les actions de joueur (pas son tour)
-    // attackBtnJ2.disabled = true
-    // healBtnJ2.disabled = true
 })
 
-fireBall.addEventListener("click", function() {
-    console.log(fireBall)
-    const damage = getFireball("mage")
-    healthBarJ2.value = healthBarJ2.value - damage
-    playFireballSound("mage")
-    if(healthBarJ2.value===0){
-        gameOver()
-    }
-    switchPlayer("voleur")
-})
+// Ajout d'un écouteur d'événements pour healthBarJ1
+// healthBarJ1.addEventListener('input', function() {
+//     let value = healthBarJ1.value;
+//     if (value <= 25) {
+//       healthBarJ1.style.backgroundColor = 'red';  // Couleur pour 25% ou moins
+//     } else if (value <= 50) {
+//       healthBarJ1.style.backgroundColor = 'orange';  // Couleur pour 50% ou moins
+//     } else {
+//       healthBarJ1.style.backgroundColor = 'green';  // Couleur pour plus de 50%
+//     }
+// });
 
+// // Ajout d'un écouteur d'événements pour healthBarJ2
+// healthBarJ2.addEventListener('input', function() {
+//     let value = healthBarJ2.value;
+//     if (value <= 25) {
+//       healthBarJ2.style.backgroundColor = 'red';  // Couleur pour 25% ou moins
+//     } else if (value <= 50) {
+//       healthBarJ2.style.backgroundColor = 'orange';  // Couleur pour 50% ou moins
+//     } else {
+//       healthBarJ2.style.backgroundColor = 'green';  // Couleur pour plus de 50%
+//     }
+// });
 
 
 /*FONCTION DOMMAGES*/
@@ -109,23 +93,39 @@ fireBall.addEventListener("click", function() {
 
 function getDamage(classe){
     if (classe === "mage"){
-        return getRandomValue(3, 6)
+        return getRandomValue(10, 30)
     }else{
-        return getRandomValue(5, 8)
+        return getRandomValue(5, 13)
     }
-
 }
+
+function getDamage(classe){
+    if (classe === "voleur"){
+        return getRandomValue(10, 30)
+    }else{
+        return getRandomValue(5, 13)
+    }
+}
+
+/*FONCTION HEAL*/
 
 function getHeal(classe){
     if(classe === "mage"){
-        return getRandomValue(4, 7)
+        return getRandomValue(10, 30)
     }else{
-        return getRandomValue(4, 5)
+        return getRandomValue(5, 13)
     }
-
 }
 
+function getHeal(classe){
+    if(classe === "voleur"){
+        return getRandomValue(10, 30)
+    }else{
+        return getRandomValue(5, 13)
+    }
+}
 
+/* FONCTION RANDOM*/
 
 function getRandomValue(min, max){
     const difference = max - min +1
@@ -139,16 +139,17 @@ function getRandomValue(min, max){
 
 function switchPlayer(classe){
     if(classe === "mage"){
+
         attackBtnJ1.disabled = false
-        console.log(healBtnJ1.value)
+
         if ( healthBarJ1.value < 100 ){
             healBtnJ1.disabled = false
         }
 
         attackBtnJ2.disabled = true
         healBtnJ2.disabled = true
-        fireBall.disabled = true
     }else{
+
         attackBtnJ2.disabled = false
         if ( healthBarJ2.value < 100 ){
             healBtnJ2.disabled = false
@@ -156,8 +157,6 @@ function switchPlayer(classe){
 
         attackBtnJ1.disabled = true
         healBtnJ1.disabled = true
-        fireBall.disabled = true
-        
     }
 }
 
